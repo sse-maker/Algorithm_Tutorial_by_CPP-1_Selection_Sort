@@ -11,44 +11,71 @@ using namespace std;
 
 class SelectionSort {
 public:
-    void Ascending(int n, int *arr);
-    void Decending(int n, int *arr);
-    void print(int n, int *arr);
+    SelectionSort();
+    ~SelectionSort();
+    
+    void Ascending();
+    void Decending();
+    void Print();
     
 private:
+    int n;
+    int *arr;
     int min, max;
     int index;
 };
 
 int main() {
-    int arr[10] = { 1, 3, 2, 4, 5, 8, 7, 6, 10, 9 };
-    
-    SelectionSort sort;
-    
-    sort.Ascending(10, arr);
-    sort.print(10, arr);
-    
-    sort.Decending(10, arr);
-    sort.print(10, arr);
+    SelectionSort *sort = new SelectionSort();
+    sort->Ascending();
+    sort->Print();
+    sort->Decending();
+    sort->Print();
+    delete sort;
 }
 
-void SelectionSort::Ascending(int n, int *arr) {
-    for(int i = 0; i < n; i++) {
+SelectionSort::SelectionSort() : arr(NULL) {
+    cin >> n;
+    arr = new int[n];
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+}
+
+SelectionSort::~SelectionSort() {
+    delete [] arr;
+    arr = NULL;
+}
+
+void SelectionSort::Ascending() {
+    for (int i = 0; i < n; i++) {
         min = INT_MAX;
-        for(int j = i; j < 10; j++) { if(arr[j] < min) { min = arr[j]; index = j; } }
+        for (int j = i; j < n; j++) {
+            if (arr[j] < min) {
+                min = arr[j];
+                index = j;
+            }
+        }
         swap(arr[i], arr[index]);
     }
 }
 
-void SelectionSort::Decending(int n, int *arr) {
-    for(int i = 0; i < n; i++) {
+void SelectionSort::Decending() {
+    for (int i = 0; i < n; i++) {
         max = INT_MIN;
-        for(int j = i; j < 10; j++) { if(arr[j] > max) { max = arr[j]; index = j; } }
+        for (int j = i; j < n; j++) {
+            if (arr[j] > max) {
+                max = arr[j];
+                index = j;
+            }
+        }
         swap(arr[i], arr[index]);
     }
 }
 
-void SelectionSort::print(int n, int *arr) {
-    for(int i = 0; i < n; i++) { cout << arr[i] << ' '; }
+void SelectionSort::Print() {
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << ' ';
+    }
     cout << endl;
 }
